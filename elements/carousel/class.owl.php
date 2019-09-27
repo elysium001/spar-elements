@@ -33,13 +33,14 @@ class SparOwl {
 			'posts' => 1,
 		 ), $atts));
 
-		 self::$carousel_name = 'omar';
+		 self::$carousel_name = 'spar-carousel-'.uniqid();
 
-		 // Localize the script with new data
-		 $spar_data = array(
-			 'carouselName' => self::$carousel_name 
-		 );
-		 wp_localize_script( 'spar-carousel-js', 'spar', $spar_data );
+		// Localize the script with new data
+		$spar_data = array(
+			'carouselName' => self::$carousel_name 
+		);
+		wp_localize_script( 'spar-carousel-js', 'spar', $spar_data );
+		
 		$content_items = preg_split('/\r\n|\r|\n/', $content);
 		foreach( $content_items as $item ){
 			self::$items .= "<div class=\"item\">{$item}</div>";
