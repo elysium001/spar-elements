@@ -87,7 +87,7 @@ class SparOwl {
 		$content = preg_replace($empty_tags, '', $content);
 		$content_items = preg_split('/\r\n|\r|\n/', $content);
 		foreach( $content_items as $item ){
-			if( $item == '</p>' ) continue;
+			if( trim($item) == '</p>' ) continue;
 			self::$items .= "<div class=\"item\">{$item}</div>";
 		}
 		return self::render();
