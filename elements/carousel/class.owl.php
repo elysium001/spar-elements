@@ -31,13 +31,31 @@ class SparOwl {
 	public static function get_shortcode( $atts, $content = null ) {
 		extract(shortcode_atts(array(
 			'posts' => 1,
+			'loop'=>true,
+			'nav'=>true,
+			'center'=> false,
+			'autoplay'=> false,
+			'autoplayTimeout'=> 3500,
+			'autoplayHoverPause'=> true,
+			'margin'=>10,
+			'autoHeight'=>false,
+			'autoHeightClass'=> 'owl-height'
 		 ), $atts));
 
 		 self::$carousel_name = 'spar-carousel-'.uniqid();
 
 		// Localize the script with new data
 		$spar_data = array(
-			'carouselName' => self::$carousel_name 
+			'carouselName' => self::$carousel_name,
+			'owlOptions' => [ "loop"=>$loop,
+			"nav"=>$nav,
+			"margin"=>$margin,
+			"center"=>$center,
+			"autoHeight"=>$autoHeight,
+			"autoHeightClass"=>$autoHeightClass,
+			"autoplay"=>$autoplay,
+			"autoplayTimeout"=>$autoplayTimeout,
+			"autoplayHoverPause"=>$autoplayHoverPause, ]
 		);
 		wp_localize_script( 'spar-carousel-js', 'spar', $spar_data );
 		
