@@ -6,22 +6,12 @@ var sparOwl = ( function( $ ) {
             loop: spar.owlOptions.loop,
             margin: spar.owlOptions.margin,
             nav: spar.owlOptions.nav,
+            autoWidth: spar.owlOptions.autoWidth,
             autoplay: spar.owlOptions.autoplay,
             autoplayTimeout:spar.owlOptions.autoplayTimeout,
             autoplayHoverPause:spar.owlOptions.autoplayHoverPause,
             autoHeight: spar.owlOptions.autoHeight,
-            autoHeightClass: spar.owlOptions.autoHeightClass,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:3
-                },
-                1000:{
-                    items:5
-                }
-            }
+            responsive: spar.owlOptions.responsive
         });
     });
 

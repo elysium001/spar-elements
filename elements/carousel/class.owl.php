@@ -28,39 +28,66 @@ class SparOwl {
 		
 	}
 
+	public static function parse_arr( $size_arr ){
+		$size_arr = explode(',',$size_arr);
+		$final_arr = array();
+		foreach ($size_arr as $properties ) {
+			$prop = explode(':', $properties);
+			$final_arr[$prop[0]] = $prop[1];
+		}
+		return $final_arr;
+	}
+
 	public static function get_shortcode( $atts, $content = null ) {
 		extract(shortcode_atts(array(
-			'posts' => 1,
 			'loop'=>true,
+			'lazyLoad'=> false,
+			'xs'=>"items:1,nav:true",
+			'sm'=>"items:1,nav:true",
+			'md'=>"items:3,nav:true",
+			'lg'=>"items:4,nav:true",
+			'xl'=>"items:5,nav:true",
 			'nav'=>true,
 			'center'=> false,
+			'autoWidth'=>false,
 			'autoplay'=> false,
 			'autoplayTimeout'=> 3500,
 			'autoplayHoverPause'=> true,
 			'margin'=>10,
-			'autoHeight'=>false,
-			'autoHeightClass'=> 'owl-height'
+			'autoHeight'=>false
 		 ), $atts));
 
-		 self::$carousel_name = 'spar-carousel-'.uniqid();
-
+		self::$carousel_name = 'spar-carousel-'.uniqid();
+		$size_arr = [
+			0=>self::parse_arr($xs),
+			480=>self::parse_arr($sm),
+			768=>self::parse_arr($md),
+			992=>self::parse_arr($lg),
+			1200=>self::parse_arr($xl)
+		];
+		
 		// Localize the script with new data
 		$spar_data = array(
-			'carouselName' => self::$carousel_name,
-			'owlOptions' => [ "loop"=>$loop,
-			"nav"=>$nav,
-			"margin"=>$margin,
-			"center"=>$center,
-			"autoHeight"=>$autoHeight,
-			"autoHeightClass"=>$autoHeightClass,
-			"autoplay"=>$autoplay,
-			"autoplayTimeout"=>$autoplayTimeout,
-			"autoplayHoverPause"=>$autoplayHoverPause, ]
+			"carouselName" => self::$carousel_name,
+			"owlOptions" => [ 
+				"loop"=>$loop,
+				"responsive"=>$size_arr,
+				"nav"=>$nav,
+				"center"=>$center,
+				"autoplay"=>$autoplay,
+				"autoplayTimeout"=>$autoplayTimeout,
+				"autoplayHoverPause"=>$autoplayHoverPause,
+				"margin"=>$margin,
+				"autoWidth"=>$autoWidth,
+				"autoHeight"=>$autoHeight]
 		);
 		wp_localize_script( 'spar-carousel-js', 'spar', $spar_data );
-		
+
+		$empty_tags = "/<[^\/>]*>([\s]?)*<\/[^>]*>/";
+		$content = preg_replace($empty_tags, '', $content);
 		$content_items = preg_split('/\r\n|\r|\n/', $content);
 		foreach( $content_items as $item ){
+			if( $item == '</p>' ) continue;
 			self::$items .= "<div class=\"item\">{$item}</div>";
 		}
 		return self::render();
