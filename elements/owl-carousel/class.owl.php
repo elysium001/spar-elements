@@ -17,25 +17,15 @@ class SparOwl {
 		self::$initiated = true;
 
 		add_action( 'wp_enqueue_scripts', array('SparOwl','load_scripts') );
-		add_shortcode( 'spar-carousel', array('SparOwl','get_shortcode') );
+		add_shortcode( 'spar-owl', array('SparOwl','get_shortcode') );
 	}
 
 	public static function load_scripts(){
-		wp_enqueue_style( 'spar-default-owl-css', plugin_dir_url( __FILE__ ) . '../../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css' );
-		wp_enqueue_style( 'spar-owl-css', plugin_dir_url( __FILE__ ) . '../../node_modules/owl.carousel/dist/assets/owl.carousel.min.css' );
-		wp_enqueue_script( 'spar-owl-js', plugin_dir_url( __FILE__ ) . '../../node_modules/owl.carousel/dist/owl.carousel.min.js', array('jquery'), '2.3.4', true );
-		wp_enqueue_script( 'spar-carousel-js', plugin_dir_url( __FILE__ ) . 'spar-carousel.js', array('jquery','spar-owl-js'), '1.0.0', true );
+		wp_enqueue_style( 'spar-default-owl-css', plugin_dir_url( __FILE__ ) . '../../assets/libraries/owl.carousel/dist/assets/owl.theme.default.min.css' );
+		wp_enqueue_style( 'spar-owl-css', plugin_dir_url( __FILE__ ) . '../../assets/libraries/owl.carousel/dist/assets/owl.carousel.min.css' );
+		wp_enqueue_script( 'spar-owl-js', plugin_dir_url( __FILE__ ) . '../../assets/libraries/owl.carousel/dist/owl.carousel.min.js', array('jquery'), '2.3.4', true );
+		wp_enqueue_script( 'spar-carousel-js', plugin_dir_url( __FILE__ ) . '../../assets/js/spar_carousel.js', array('jquery','spar-owl-js'), '1.0.0', true );
 		
-	}
-
-	public static function parse_arr( $size_arr ){
-		$size_arr = explode(',',$size_arr);
-		$final_arr = array();
-		foreach ($size_arr as $properties ) {
-			$prop = explode(':', $properties);
-			$final_arr[$prop[0]] = $prop[1];
-		}
-		return $final_arr;
 	}
 
 	public static function get_shortcode( $atts, $content = null ) {
@@ -59,11 +49,11 @@ class SparOwl {
 
 		self::$carousel_name = 'spar-carousel-'.uniqid();
 		$size_arr = [
-			0=>self::parse_arr($xs),
-			480=>self::parse_arr($sm),
-			768=>self::parse_arr($md),
-			992=>self::parse_arr($lg),
-			1200=>self::parse_arr($xl)
+			0=>parse_arr($xs),
+			480=>parse_arr($sm),
+			768=>parse_arr($md),
+			992=>parse_arr($lg),
+			1200=>parse_arr($xl)
 		];
 		
 		// Localize the script with new data
