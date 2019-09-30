@@ -1,7 +1,8 @@
-# Spar Elements: WordPress Plugin
-Contact: [webtechgnosis.com/spar](webtechgnosis.com/spar), 
-twitter: [AOmarSerrano](https://twitter.com/AOmarSerrano),
-donate: [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UFYACC836R63N&item_name=Will+code+for+money%21+%3A%29&currency_code=USD&source=url)
+# Spar Elements: WordPress Plugin (WIP)
+* Contact: [webtechgnosis.com/spar](webtechgnosis.com/spar)
+* Twitter: [AOmarSerrano](https://twitter.com/AOmarSerrano)
+* Donate: [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UFYACC836R63N&item_name=Will+code+for+money%21+%3A%29&currency_code=USD&source=url)
+
 Another Wordpress plugin which provides shortcodes for common libraries and elements such as bootstrap v4 and Owl Carousel v2.3.4.
 
 ## Easy Install
