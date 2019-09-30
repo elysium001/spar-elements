@@ -3,7 +3,7 @@
 * Twitter: [AOmarSerrano](https://twitter.com/AOmarSerrano)
 * Donate: [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=UFYACC836R63N&item_name=Will+code+for+money%21+%3A%29&currency_code=USD&source=url)
 
-Another Wordpress plugin which provides shortcodes for common libraries and elements such as bootstrap v4 and Owl Carousel v2.3.4.
+Another Wordpress plugin which provides shortcodes for common libraries and elements such as bootstrap v4 and Owl Carousel v2.3.4. The idea is to provide simple shortcodes for quick and easy use and little to no configuring. Just wrap your content with them and be done. github.com/elysium001/spar-elements #shortcode #owlcarousel #classiceditor #spar #wordpress #wordpressdeveloper
 
 ## Easy Install
 Download and unzip into your wordpress plugin folder and activate!
