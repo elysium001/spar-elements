@@ -5,7 +5,6 @@ var sparOwl = ( function( $ ) {
             center: spar.owlOptions.center,
             loop: spar.owlOptions.loop,
             margin: spar.owlOptions.margin,
-            nav: spar.owlOptions.nav,
             autoWidth: spar.owlOptions.autoWidth,
             autoplay: spar.owlOptions.autoplay,
             autoplayTimeout:spar.owlOptions.autoplayTimeout,

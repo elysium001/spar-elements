@@ -24,30 +24,32 @@ class SparOwl {
 		wp_enqueue_style( 'spar-default-owl-css', plugin_dir_url( __FILE__ ) . '../../assets/libraries/owl.carousel/dist/assets/owl.theme.default.min.css' );
 		wp_enqueue_style( 'spar-owl-css', plugin_dir_url( __FILE__ ) . '../../assets/libraries/owl.carousel/dist/assets/owl.carousel.min.css' );
 		wp_enqueue_script( 'spar-owl-js', plugin_dir_url( __FILE__ ) . '../../assets/libraries/owl.carousel/dist/owl.carousel.min.js', array('jquery'), '2.3.4', true );
-		wp_enqueue_script( 'spar-carousel-js', plugin_dir_url( __FILE__ ) . '../../assets/js/spar_carousel.js', array('jquery','spar-owl-js'), '1.0.0', true );
-		
+		wp_enqueue_script( 'spar-carousel-js', plugin_dir_url( __FILE__ ) . '../../assets/js/spar_carousel.js', array('jquery','spar-owl-js'), '1.0.0', true );		
 	}
 
 	public static function get_shortcode( $atts, $content = null ) {
 		extract(shortcode_atts(array(
+			'split'=>'img',
 			'loop'=>true,
 			'lazyLoad'=> false,
 			'xs'=>"items:1,nav:true",
 			'sm'=>"items:1,nav:true",
-			'md'=>"items:3,nav:true",
-			'lg'=>"items:4,nav:true",
-			'xl'=>"items:5,nav:true",
-			'nav'=>true,
+			'md'=>"items:1,nav:true",
+			'lg'=>"items:1,nav:true",
+			'xl'=>"items:1,nav:true",
 			'center'=> false,
 			'autoWidth'=>false,
-			'autoplay'=> false,
+			'autoplay'=> true,
 			'autoplayTimeout'=> 3500,
 			'autoplayHoverPause'=> true,
 			'margin'=>10,
 			'autoHeight'=>false
-		 ), $atts));
+		), $atts));
 
+		// Create unique id selector to pass to js init.
 		self::$carousel_name = 'spar-carousel-'.uniqid();
+
+		// Create owl js responsive obj with common sizes.
 		$size_arr = [
 			0=>parse_arr($xs),
 			480=>parse_arr($sm),
@@ -62,7 +64,6 @@ class SparOwl {
 			"owlOptions" => [ 
 				"loop"=>$loop,
 				"responsive"=>$size_arr,
-				"nav"=>$nav,
 				"center"=>$center,
 				"autoplay"=>$autoplay,
 				"autoplayTimeout"=>$autoplayTimeout,
@@ -73,9 +74,30 @@ class SparOwl {
 		);
 		wp_localize_script( 'spar-carousel-js', 'spar', $spar_data );
 
-		$empty_tags = "/<[^\/>]*>([\s]?)*<\/[^>]*>/";
-		$content = preg_replace($empty_tags, '', $content);
-		$content_items = preg_split('/\r\n|\r|\n/', $content);
+		// Remove empty p tags.
+		$content = preg_replace('/<p[^>]*><\\/p[^>]*>/', '', $content);
+
+		if( $split ){
+			$content_items = trim($content);
+		}else{
+			$content_items = preg_split('/\r\n|\r|\n/', $content);
+		}
+
+		/**
+		 * Only supports split by newline and img tags at the moment.
+		 * 
+		 * TODO: Add more tags to split by.
+		 */
+		switch ($split) {
+			case 'img':
+				$content_items = preg_split('/(<img[^>]+\>)/i', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+				$content_items = array_filter($content_items, 'img_arr_filter');
+				break;
+			default:
+				$content_items = preg_split('/\r\n|\r|\n/', $content);				
+				break;
+		}
+
 		foreach( $content_items as $item ){
 			if( trim($item) == '</p>' ) continue;
 			self::$items .= "<div class=\"item\">{$item}</div>";
