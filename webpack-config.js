@@ -3,7 +3,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
 	entry: {
-		spar_carousel: './elements/owl-carousel/spar-carousel.js'
+		spar_carousel: './elements/owl-carousel/spar-carousel.js',
+		spar_bootstrapCarousel: './elements/bootstrap/spar-bootstrap.js',
 	},
 
 	output: {

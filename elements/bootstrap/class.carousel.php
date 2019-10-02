@@ -2,13 +2,15 @@
 class SparBootstrapCarousel {
 	private $content = null;
 	private $options = null;
+	private $split = null;
     private $bootstrap_name = '';
 	private static $items = '';
 	private static $item_indicators = '';
     
-    function __construct( $content, $options = null ) {
+    function __construct( $content, $split, $options = null ) {
         $this->content = $content;
-        $this->options = parse_arr( $options );
+        $this->split = $split;
+        $this->options = parse_arr( $options, true );
 		$this->bootstrap_name = 'spar-bootstrap-carousel-'.uniqid();
     }
 
@@ -42,9 +44,10 @@ class SparBootstrapCarousel {
 
     public function render(){
         if( $this->content == null ) return;
-		$empty_tags = "/<[^\/>]*>([\s]?)*<\/[^>]*>/";
-        $content = preg_replace($empty_tags, '', $this->content);
-        $content_items = preg_split('/\r\n|\r|\n/', $content);
+        
+        // Remove empty p tags.
+		$content = preg_replace('/<p[^>]*><\\/p[^>]*>/', '', $this->content);
+        $content_items = split_content($this->split, $content);
         $count = 0;
 		foreach( $content_items as $item ){
             if( trim($item) == '</p>' ) continue;
@@ -54,7 +57,7 @@ class SparBootstrapCarousel {
             $count++;
         }
         
-        $elem = "<div id=\"{$this->bootstrap_name}\" class=\"carousel slide\" {$this->build_options()}>";
+        $elem = "<div id=\"{$this->bootstrap_name}\" class=\"carousel slide mb-5\" {$this->build_options()}>";
 
         if( $this->options['indicators'] == 'true' ){
             $elem .= "<ol class=\"carousel-indicators\">".self::$item_indicators."</ol>";
@@ -77,6 +80,6 @@ class SparBootstrapCarousel {
                 </a>";
         }
         $elem .= "</div>";        
-		echo $elem;
+        echo $elem;
     }
 }

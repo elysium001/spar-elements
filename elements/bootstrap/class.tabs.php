@@ -29,7 +29,7 @@ class SparBootstrapTabs {
         $elem = "<ul class=\"nav nav-{$this->style}s\">";
         $elem .= self::$item_headings;
         $elem .= "</ul>";
-        $elem .= "<div id=\"tab-".$this->bootstrap_name."\" class=\"tab-content\">";
+        $elem .= "<div id=\"tab-".$this->bootstrap_name."\" class=\"tab-content mb-5\">";
 		$elem .= self::$items;
 		$elem .= '</div>';
 		echo $elem;

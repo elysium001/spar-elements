@@ -106,7 +106,7 @@ class SparOwl {
 	}
 
 	public static function render(){
-		$elem = '<div class="owl-carousel owl-theme '.self::$carousel_name.'">';
+		$elem = '<div class="owl-carousel owl-theme '.self::$carousel_name.' mb-5">';
 		$elem .= self::$items;
 		$elem .= '</div>';
 		echo $elem;

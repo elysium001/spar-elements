@@ -30,8 +30,8 @@ class SparBootstrap {
         wp_enqueue_style( 'bootstrap', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/css/bootstrap.min.css' );
 		wp_enqueue_script( 'bootstrap-bundle', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/js/bootstrap.bundle.min.js', array('jquery'), '4.3.1', true );
 		wp_enqueue_script( 'bootstrap-js', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/js/bootstrap.min.js', array('jquery'), '4.3.1', true );
-		
-    }
+		wp_enqueue_script( 'spar-bootstrap-js', plugin_dir_url( __FILE__ ) . '../../assets/js/spar_bootstrapCarousel.js', array('jquery'), '1.0.0', true );	
+	}
 
     public static function get_shortcode( $atts, $content = null ) {
 		extract(shortcode_atts(array(
@@ -40,6 +40,7 @@ class SparBootstrap {
 			'title'=>'',
 			'btn_class'=>'',
 			'btn_text'=>'',
+			'split'=>'img',
 			'headings'=> true,
 			'modal'=>'v-centered:false,fade:true,size:lg,backdrop:true,keyboard:true,focus:true,show:true',
 			'carousel'=>'controls:true,indicators:true,captions:true,interval:5000,keyboard:true,pause:hover,ride:carousel,wrap:true'
@@ -55,7 +56,7 @@ class SparBootstrap {
 				$accordion->render();
 				break;
 			case 'carousel':
-				$carousel = new SparBootstrapCarousel( $content, $carousel);
+				$carousel = new SparBootstrapCarousel( $content, $split, $carousel);
 				$carousel->render();
 				break;
 			case 'modal':
