@@ -30,7 +30,7 @@ require_once( SPAR_ELEMENTS_PLUGIN_DIR . 'elements/owl-carousel/class.owl.php' )
 add_action( 'init', array( 'SparBootstrap', 'init' ) );
 add_action( 'init', array( 'SparOwl', 'init' ) );
 
-// if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
-// 	require_once( SPAR_ELEMENTS_PLUGIN_DIR . 'class.spar-elem-admin.php' );
-// 	add_action( 'init', array( 'spar-elem_Admin', 'init' ) );
-// }
+if ( is_admin() ) {
+	require_once( SPAR_ELEMENTS_PLUGIN_DIR . 'class.spar-admin.php' );
+	$my_settings_page = new SparAdmin();
+}

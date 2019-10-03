@@ -27,10 +27,15 @@ class SparBootstrap {
 	}
 
 	public static function load_scripts(){
-        wp_enqueue_style( 'bootstrap', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/css/bootstrap.min.css' );
-		wp_enqueue_script( 'bootstrap-bundle', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/js/bootstrap.bundle.min.js', array('jquery'), '4.3.1', true );
-		wp_enqueue_script( 'bootstrap-js', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/js/bootstrap.min.js', array('jquery'), '4.3.1', true );
-		wp_enqueue_script( 'spar-bootstrap-js', plugin_dir_url( __FILE__ ) . '../../assets/js/spar_bootstrapCarousel.js', array('jquery'), '1.0.0', true );	
+		var_dump(get_option('spar_library_toggle_option'));
+		if( !get_option('spar_library_toggle_option','bootstrap_css') ){
+			wp_enqueue_style( 'bootstrap', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/css/bootstrap.min.css' );
+		}
+		if( !get_option('spar_library_toggle_option','bootstrap_js') ){
+			wp_enqueue_script( 'bootstrap-bundle', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/js/bootstrap.bundle.min.js', array('jquery'), '4.3.1', true );
+			wp_enqueue_script( 'bootstrap-js', plugin_dir_url( __FILE__ ) . '../../assets/libraries/bootstrap/dist/js/bootstrap.min.js', array('jquery'), '4.3.1', true );
+			wp_enqueue_script( 'spar-bootstrap-js', plugin_dir_url( __FILE__ ) . '../../assets/js/spar_bootstrapCarousel.js', array('jquery'), '1.0.0', true );	
+		}
 	}
 
     public static function get_shortcode( $atts, $content = null ) {
